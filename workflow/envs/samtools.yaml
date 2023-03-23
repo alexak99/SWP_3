@@ -1,0 +1,8 @@
+name: samtools_env
+
+channels:
+  - bioconda
+
+dependencies:
+  - samtools=1.6
+  - qualimap=2.2.2

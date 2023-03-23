@@ -1,0 +1,15 @@
+import pandas as pd
+configfile: "config/config.yaml"
+samples = pd.read_table(config["samples"], index_col = "sample")
+
+rule all:
+    input:
+        stats=expand("results/stats/{sample}_aug.txt", sample = list(samples.index)),
+        fastqc_raw_1=expand("results/fastqc_raw/{sample}_1_fastqc.html", sample = list(samples.index)),
+        fastqc_raw_2=expand("results/fastqc_raw/{sample}_2_fastqc.html", sample = list(samples.index)),
+        """fastqc_trimmed_1=expand("results/fastqc_trimmed/{sample}_1_fastqc.html", sample = list(samples.index)),
+        fastqc_trimmed_2=expand("results/fastqc_trimmed/{sample}_2_fastqc.html", sample = list(samples.index))"""
+
+include: "rules/qualitycontrol.smk"
+include: "rules/bowtie.smk"
+include: "rules/samtools.smk"

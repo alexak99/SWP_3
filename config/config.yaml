@@ -1,0 +1,5 @@
+index: resources/index/rf
+samples: resources/sample.tsv
+#samples_t: resources/sample_trimmed.tsv
+n_max_mismatches: 0
+len_seed_substr: 22
