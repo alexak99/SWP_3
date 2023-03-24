@@ -42,25 +42,26 @@ rule idxstats:
         sorted_bam_file="results/bam_sorted/{sample}.sorted.bam",
         index_file="results/bam_sorted/{sample}.sorted.bam.bai"
     output:
-        stats_idxstats="results/stats_idxstats/{sample}_aug.txt"
+        idxstats="results/stats_idxstats/{sample}_aug.txt"
     threads: 4
     conda:
         "../envs/samtools.yaml"
     log:
-        "results/logs/mapping_stats/{sample}.log"
+        "results/logs/stats_idxstats/{sample}.log"
     shell:
-        "samtools idxstats {input.sorted_bam_file} > {output.stats_file} -@ {threads} 2> {log}"
+        "samtools idxstats {input.sorted_bam_file} > {output.idxstats} -@ {threads} --print-chr-name 2> {log}"
 
 rule qualimap:
     input:
-        sorted_bam_file="results/bam_sorted/{sample}.sorted.bam",
-        index_file="results/bam_sorted/{sample}.sorted.bam.bai"
+        sorted_bam_file="results/bam_sorted/{sample}.sorted.bam"
     output:
-        stats_qualimap="results/stats_qualimap/{sample}_aug.txt"
+        bamqc="results/stats_bamqc/{sample}/qualimapReport.html"
+    params:
+        bamqc_dir="results/stats_bamqc/{sample}"
     threads: 4
     conda:
         "../envs/samtools.yaml"
     log:
-        "results/logs/mapping_stats/{sample}.log"
+        "results/logs/stats_qualimap/{sample}.log"
     shell:
-        "qualimap bamqc -bam {input.sorted_bam_file} -gd hg19 -nt {threads} -outdir {output.stats_qualimap} 2> {log}"
+        "qualimap bamqc -bam {input.sorted_bam_file} -gd hg19 -nt {threads} -outdir {params.bamqc_dir} 2> {log}"

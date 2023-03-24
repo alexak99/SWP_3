@@ -1,5 +1,11 @@
 index: resources/index/rf
 samples: resources/sample.tsv
-#samples_t: resources/sample_trimmed.tsv
+trimmomatic:
+  LEADING: 3
+  TRAILING: 3 
+  MINLEN: 36
+  ILLUMINACLIP:
+    adapters: resources/adapter/adapter.fa
+    clip_opts: "2:30:10"
 n_max_mismatches: 0
 len_seed_substr: 22

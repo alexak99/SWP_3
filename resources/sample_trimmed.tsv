@@ -1,7 +1,0 @@
-sample_t	fq1	fq2
-ERR024604_tiny	resources/fastq/trimmed/ERR024604_tiny_1_trimmed.fastq	resources/fastq/trimmed/ERR024604_tiny_2_trimmed.fastq
-ERR024605_tiny	resources/fastq/trimmed/ERR024605_tiny_1_trimmed.fastq	resources/fastq/trimmed/ERR024605_tiny_2_trimmed.fastq
-ERR024606_tiny	resources/fastq/trimmed/ERR024606_tiny_1_trimmed.fastq	resources/fastq/trimmed/ERR024606_tiny_2_trimmed.fastq
-ERR024607_tiny	resources/fastq/trimmed/ERR024607_tiny_1_trimmed.fastq	resources/fastq/trimmed/ERR024607_tiny_2_trimmed.fastq
-ERR024608_tiny	resources/fastq/trimmed/ERR024608_tiny_1_trimmed.fastq	resources/fastq/trimmed/ERR024608_tiny_2_trimmed.fastq
-ERR024609_tiny	resources/fastq/trimmed/ERR024609_tiny_1_trimmed.fastq	resources/fastq/trimmed/ERR024609_tiny_2_trimmed.fastq

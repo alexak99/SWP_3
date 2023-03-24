@@ -4,13 +4,13 @@ samples = pd.read_table(config["samples"], index_col = "sample")
 
 rule all:
     input:
-        stats_idxstats=expand("results/stats_idxstats/{sample}_aug.txt", sample = list(samples.index)),
-        stats_qualimap=expand("results/stats_qualimap/{sample}_aug.txt", sample = list(samples.index)),
-        fastqc_raw_1=expand("results/fastqc_raw/{sample}_1_fastqc.html", sample = list(samples.index)),
-        fastqc_raw_2=expand("results/fastqc_raw/{sample}_2_fastqc.html", sample = list(samples.index)),
-        """fastqc_trimmed_1=expand("results/fastqc_trimmed/{sample}_1_fastqc.html", sample = list(samples.index)),
-        fastqc_trimmed_2=expand("results/fastqc_trimmed/{sample}_2_fastqc.html", sample = list(samples.index))"""
+#        fastqc_raw=expand("results/fastqc_raw/{sample}_{idx}_fastqc.html", sample = list(samples.index), idx = ["1","2"]),
+        idxstats = expand("results/stats_idxstats/{sample}_aug.txt", sample = list(samples.index)),
+#        bamqc = expand("results/stats_bamqc/{sample}/qualimapReport.html", sample = list(samples.index)),
+#        html = "results/multiqc/multiqc_report.html",
+#        fastqc_trimmed=expand("results/fastqc_trimmed/{sample}_{idx2}_fastqc.html", sample = list(samples.index), idx2 = ["1_trimmed","2_trimmed"])
 
 include: "rules/qualitycontrol.smk"
 include: "rules/bowtie.smk"
 include: "rules/samtools.smk"
+include: "rules/multiqc.smk"
