@@ -1,16 +1,21 @@
 import pandas as pd
+import aggregate
 configfile: "config/config.yaml"
 samples = pd.read_table(config["samples"], index_col = "sample")
 
 rule all:
     input:
-#        fastqc_raw=expand("results/fastqc_raw/{sample}_{idx}_fastqc.html", sample = list(samples.index), idx = ["1","2"]),
+        fastqc_raw=expand("results/fastqc_raw/{sample}_{idx}_fastqc.html", sample = list(samples.index), idx = ["1","2"]),
         idxstats = expand("results/stats_idxstats/{sample}_aug.txt", sample = list(samples.index)),
-#        bamqc = expand("results/stats_bamqc/{sample}/qualimapReport.html", sample = list(samples.index)),
+        bamqc = expand("results/stats_bamqc/{sample}/qualimapReport.html", sample = list(samples.index)),
 #        html = "results/multiqc/multiqc_report.html",
-#        fastqc_trimmed=expand("results/fastqc_trimmed/{sample}_{idx2}_fastqc.html", sample = list(samples.index), idx2 = ["1_trimmed","2_trimmed"])
+        fastqc_trimmed=expand("results/fastqc_trimmed/{sample}_{idx2}_fastqc.html", sample = list(samples.index), idx2 = ["1_trimmed","2_trimmed"])
 
 include: "rules/qualitycontrol.smk"
 include: "rules/bowtie.smk"
 include: "rules/samtools.smk"
 include: "rules/multiqc.smk"
+
+idxstats_filenames = expand("results/stats_idxstats/{sample}_aug.txt", sample = list(samples.index))
+
+aggregate.aggregate(idxstats_filenames, "results/seq_counts.csv")
